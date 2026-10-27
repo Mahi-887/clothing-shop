@@ -64,6 +64,23 @@ node database/seeds.js
 docker-compose up --build
 ```
 
+## 🌐 Deploy Frontend to GitHub Pages
+
+GitHub Pages can host only the static Next.js frontend from `frontend/`. The Express/MongoDB backend in `backend/` must be deployed separately.
+
+1. In GitHub, open **Settings → Pages** and set **Source** to **GitHub Actions**.
+2. In **Settings → Secrets and variables → Actions → Variables**, add:
+   - `NEXT_PUBLIC_API_URL=https://<your-public-backend-url>`
+3. Ensure your backend allows CORS from your Pages site (`https://mahi-887.github.io/clothing-shop`).
+4. Push to `main` (or run the **Deploy frontend to GitHub Pages** workflow manually).
+5. Open the deployed site at `https://mahi-887.github.io/clothing-shop/`.
+
+### Important limitations on GitHub Pages
+
+- GitHub Pages serves static files only; it does not run Node.js/Express, MongoDB, Stripe webhooks, or server-side APIs.
+- Features like authentication, checkout/payment, admin management, order history, and any API-driven UI require a publicly reachable backend URL.
+- If `NEXT_PUBLIC_API_URL` is missing or your backend is unreachable, API-dependent pages will fail even though static pages still load.
+
 ## 📚 Documentation
 
 - [API Documentation](docs/API.md)
